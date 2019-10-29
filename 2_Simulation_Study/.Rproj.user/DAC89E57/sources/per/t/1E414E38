@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1571131451602.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2023137399",
+    "id" : "1E414E38",
+    "lastKnownWriteTime" : 1572251384,
+    "last_content_update" : 1572251384156,
+    "path" : "~/git/anticlust-code/2_Simulation_Study/4-Aggregate-Results.R",
+    "project_path" : "4-Aggregate-Results.R",
+    "properties" : {
+        "cursorPosition" : "63,0",
+        "scrollLine" : "20"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

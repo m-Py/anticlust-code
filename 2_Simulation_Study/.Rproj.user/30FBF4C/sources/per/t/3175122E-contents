@@ -1,0 +1,105 @@
+
+# Author: Martin Papenberg
+# Year: 2019
+
+# Load required packages
+library(anticlust)
+library(dplyr)
+library(tidyr)
+
+## Analyze data for K = 2 and K = 3 and write results to file
+for (K in 2:3) {
+  n_Clusters <- paste0("K", K)
+  results_file <- paste0("results-", n_Clusters, "-raw.csv")
+  
+  ## Read test results
+  ldf <- read.csv(results_file, sep = ";")
+
+  ## Get optimum per simulation run
+  maxima <- ldf %>% 
+    filter(objective == "distance" | objective == "variance") %>% 
+    group_by(ID, objective) %>% 
+    summarise(optimum = max(value, na.rm = TRUE))
+  minima <- ldf %>% 
+    filter(objective == "means" | objective == "sds") %>% 
+    group_by(ID, objective) %>% 
+    summarise(optimum = min(value, na.rm = TRUE))
+  optima <- rbind(minima, maxima)
+  
+  ## Compute relative objective
+  merged <- ldf %>% 
+    inner_join(optima) %>% 
+    mutate(rel_value = value / optimum) %>% 
+    as_tibble()
+  
+  ndecimals <- 3
+  
+  ## List average performance per run -- objective value anticluster editing
+  distance_objective <- merged %>% 
+    mutate(N_category = factor(
+      case_when(N <= 20 ~ 1, 
+                N > 20 & N <= 40 ~ 2,
+                TRUE  ~ 3),
+      levels = 1:3, labels = c("N <= 20", "20 < N <= 40", "N > 40"))
+    ) %>% 
+    filter(objective == "distance") %>% 
+    group_by(method, N_category) %>% 
+    summarise(Objective = mean(rel_value)) %>% 
+    arrange(N_category, -Objective) %>% 
+    na.omit() %>%  
+    rename(N = N_category)
+  
+  ## List average performance per run -- means
+  mean_objective <- merged %>% 
+    mutate(N_category = factor(
+      case_when(N <= 20 ~ 1, 
+                N > 20 & N <= 40 ~ 2,
+                TRUE  ~ 3),
+      levels = 1:3, labels = c("N <= 20", "20 < N <= 40", "N > 40"))
+    ) %>% 
+    filter(objective == "means") %>% 
+    group_by(method, N_category) %>% 
+    summarise(D_Means = mean(value)) %>% 
+    arrange(N_category, D_Means) %>% 
+    na.omit() %>%  
+    rename(N = N_category)
+
+  ## List average performance per run -- standard deviations
+  sds_objective <- merged %>% 
+    mutate(N_category = factor(
+      case_when(N <= 20 ~ 1, 
+                N > 20 & N <= 40 ~ 2,
+                TRUE  ~ 3),
+      levels = 1:3, labels = c("N <= 20", "20 < N <= 40", "N > 40"))
+    ) %>% 
+    filter(objective == "sds") %>% 
+    group_by(method, N_category) %>% 
+    summarise(D_SD = mean(value)) %>% 
+    arrange(N_category, D_SD) %>% 
+    na.omit() %>% 
+    rename(N = N_category)
+  
+  # Table that contains all objectives:
+  all_obj <- distance_objective %>% 
+    inner_join(mean_objective) %>% 
+    inner_join(sds_objective)
+  
+  # rename methods
+  all_obj <- all_obj %>% 
+    ungroup %>%
+    mutate(
+      method = case_when(
+        method == "ilp.exact" ~ "ACE-ILP",
+        method == "ilp.preclustered" ~ "ACE-ILP/Preclustering",
+        method == "ace.exchange" ~ "ACE-Exchange",
+        method == "matching" ~ "Matching",
+        method == "k.means.exchange" ~ "K-Means-Anticlustering",
+        method == "random" ~ "Random assignment",
+        TRUE ~ "should not happen"
+      )
+    )
+  
+  ## Write results table
+  write.table(all_obj, paste0("results-", n_Clusters, "-aggregated.csv"), 
+              quote = TRUE, row.names = FALSE, sep = ";")
+}
