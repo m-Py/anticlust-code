@@ -3,25 +3,26 @@
 # Year: 2019
 
 #' Greedy matching approach for anticlustering
-#' 
-#' @param features 
-#' 
+#'
+#' @param distances An N x N distance matrix describing dissimilarities
+#'     between N elements
+#'
 #' @return A vector representing the set each item was assigned to
-#' 
+#'
 #' @details
-#' 
-#' Extending the procedure proposed by Lahl and Pietrowsky (2006), this 
-#' function sequentially assigns the two closest neighbours to two 
+#'
+#' Extending the procedure proposed by Lahl and Pietrowsky (2006), this
+#' function sequentially assigns the two closest neighbours to two
 #' different groups. It can be used to create two similar sets.
-#' 
-#' @references 
-#'  
-#' Lahl, O., & Pietrowsky, R. (2006). EQUIWORD: A software application 
-#' for the automatic creation of truly equivalent word lists. Behavior 
-#' Research Methods, 38, 146–152. 
-#' 
+#'
+#' @references
+#'
+#' Lahl, O., & Pietrowsky, R. (2006). EQUIWORD: A software application
+#' for the automatic creation of truly equivalent word lists. Behavior
+#' Research Methods, 38, 146–152.
+#'
 matching_anticlustering <- function(distances) {
-  
+
   ## Prepare the distance matrix
   distances <- as.matrix(distances)
   diag(distances) <- Inf
@@ -34,7 +35,7 @@ matching_anticlustering <- function(distances) {
   ## different anticlusters
   anticlusters <- rep(NA, N)
   for (i in 1:(N/2)) {
-    ## Select the closest pair (if the smallest distance occurs more 
+    ## Select the closest pair (if the smallest distance occurs more
     ## than once, select the first pair)
     pair <- which(distances == min(distances), arr.ind = TRUE)[1, ]
     ## Randomly assign the two stimuli to two different clusters:
