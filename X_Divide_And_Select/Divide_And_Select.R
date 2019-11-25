@@ -4,6 +4,15 @@
 
 ## Solve the Divide and Select problem using the `anticlust` package
 
+# Update 2019-11-25:
+# With the most recent development version, there is functionality 
+# available that facilitates solving the Divide and Select problem
+# using the `anticlust` package. See the vignette under 
+# https://m-py.github.io/anticlust/stimulus-selection.html 
+
+
+#### ------------------ 
+
 # devtools::install_github("m-Py/anticlust") # uncomment to install package
 
 library(anticlust)
