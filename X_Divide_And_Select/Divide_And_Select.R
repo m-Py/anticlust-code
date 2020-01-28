@@ -1,6 +1,6 @@
 
 # Author: Martin Papenberg
-# Year: 2019
+# Year: 2019, 2020
 
 ## Solve the Divide and Select problem using the `anticlust` package
 
@@ -10,10 +10,16 @@
 # using the `anticlust` package. See the vignette under 
 # https://m-py.github.io/anticlust/stimulus-selection.html 
 
-
 #### ------------------ 
 
-# devtools::install_github("m-Py/anticlust") # uncomment to install package
+# Update 2020-01-28:
+# With the new version 0.4.0, the below method of solving Divide & Select 
+# is deprecated, use https://m-py.github.io/anticlust/stimulus-selection.html 
+# instead. To nevertheless reproduce it, install the package version 0.3.0
+# as follows: 
+# remotes::install_github("m-Py/anticlust", ref = "v0.3.0")
+
+#### ------------------ 
 
 library(anticlust)
 
