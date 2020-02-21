@@ -25,8 +25,9 @@ library(anticlust)
 # manuscript, set the seed as follows (this includes an test whether
 # the R version is >= 3.6 because the behaviour of the random seed
 # differs between 3.5 and 3.6)
-
-if (as.numeric(strsplit(R.Version()$minor, "")[[1]][1]) >= 6) {
+r_minor <- as.numeric(strsplit(R.Version()$minor, "")[[1]][1])
+r_major <- as.numeric(R.Version()$major)
+if (r_major >= 4 || (r_major == 3 && r_minor >= 6)) {
   RNGkind(sample.kind = "Rounding")
 } 
 set.seed(123)
