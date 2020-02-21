@@ -26,7 +26,7 @@ equivalent parts" (Papenberg & Klau, 2019).
   on the 10,000 data sets), execute all of the commands in the script 
   "2-Call-Methods.R". This will not reproduce the results exactly
   because most methods rely on random number generation.
-- To just reproduce the analysis reported in the paper, exectute all 
+- To just reproduce the analysis reported in the paper, execute all 
   commands in the script "3-Compute-Objectives.R" and "4-Aggregate-Results.R". 
   Doing so will compute the three objectives reported in the manuscript
   for each simulation run for each method, and the aggregate the results
@@ -50,7 +50,8 @@ Researchers can obtain a free (as in free beer) license for the
 commercial solvers.
 
 Note that to use a commercial integer linear programming solver,
-(old) `anticlust` version 0.3.0 must be used. To install this 
+(old) `anticlust` version 0.3.0 **must** be used, which was also 
+used for the simulation reported in the paper. To install this 
 version of `anticlust`, use the following code:
 
 ```
@@ -58,4 +59,3 @@ library("remotes") # if not available: install.packages("remotes")
 
 install_github("m-Py/anticlust", ref = "v0.3.0")
 ```
-
