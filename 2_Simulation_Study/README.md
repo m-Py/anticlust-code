@@ -48,3 +48,14 @@ install one of the commercial solvers gurobi or CPLEX because they
 are much faster than the open source GNU linear programming kit.
 Researchers can obtain a free (as in free beer) license for the 
 commercial solvers.
+
+Note that to use a commercial integer linear programming solver,
+(old) `anticlust` version 0.3.0 must be used. To install this 
+version of `anticlust`, use the following code:
+
+```
+library("remotes") # if not available: install.packages("remotes")
+
+install_github("m-Py/anticlust", ref = "v0.3.0")
+```
+
