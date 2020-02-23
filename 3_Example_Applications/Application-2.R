@@ -80,12 +80,11 @@ for (i in 1:40) {
 item_responses <- subset(npi, select = score_Q1:score_Q40)
 
 start <- Sys.time()
-samples <- anticlustering(
+samples <- fast_anticlustering(
   item_responses, 
-  K = 5, # 5 validation samples
-  objective = "variance", # k-means anticlustering
-  preclustering = TRUE, # reduces the number of exchange partners
-  categories = npi$gender # balance gender across samples
+  K = 5,
+  categories = npi$gender,
+  k_neighbours = 5
 )
 Sys.time() - start
 
@@ -98,17 +97,17 @@ npi$rnd_assignment <- rnd_assignment
 
 # - Optionally: write results to file
 # write.table(
-#   npi,
-#   file = "npi_processed.csv", 
+#   npi[, c("anticlusters", "rnd_assignment")],
+#   file = "npi_anticlusters.csv",
 #   row.names = FALSE,
 #   sep = ",",
-#   col.names = TRUE 
+#   col.names = TRUE
 # )
 
 
 ## 7. Evaluate results
 
-# Check out similarity of item means
+# Check out similarity of item means (rounded on two decimals)
 means_by_group <- function(features, anticlusters) {
   data.frame(lapply(by(features, anticlusters, function(x) round(colMeans(x), 2)), c))
 }
