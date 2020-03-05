@@ -7,8 +7,8 @@ Year: 2019
 ---
 
 This directory contains simulation code and data accompanying the
-manuscript "Using anticlustering to partition a stimulus pool into
-equivalent parts" (Papenberg & Klau, 2019).
+manuscript "Using anticlustering to partition data sets into equivalent 
+parts" (Papenberg & Klau, 2019).
 
 ## General information
 

@@ -3,7 +3,8 @@
 # Year: 2020
 
 # This script reproduces Application II (Independent samples for cross
-# validation) in the manuscript XY.
+# validation) in "Using anticlustering to partition data sets into 
+# equivalent parts" (Papenberg & Klau, 2019).
 
 # The code can simply be executed from top to bottom.
 

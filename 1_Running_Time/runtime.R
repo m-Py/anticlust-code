@@ -2,9 +2,9 @@
 # Author: Martin Papenberg
 # Year: 2019
 
-# This script can be used to reproduce the run time compuation
-# reported in the manuscript "Using anticlustering to dissect 
-# stimulus pools into equivalent parts" (Papenberg & Klau, 2019)
+# This script can be used to reproduce the run time computation
+# reported in the manuscript "Using anticlustering to partition 
+# data sets into equivalent parts" (Papenberg & Klau, 2019)
 
 
 # Compute run time for the anticlustering methods by N

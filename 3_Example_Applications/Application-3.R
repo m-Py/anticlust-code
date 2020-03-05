@@ -2,8 +2,9 @@
 # Author: Martin Papenberg
 # Year: 2020
 
-# This script reproduces Application III (Parallel test splits) in the
-# manuscript XY.
+# This script reproduces Application III (Parallel test splits) in
+# "Using anticlustering to partition data sets into equivalent parts" 
+# (Papenberg & Klau, 2019).
 
 # The code can simply be executed from top to bottom.
 
