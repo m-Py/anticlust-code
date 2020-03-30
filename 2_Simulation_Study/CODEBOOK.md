@@ -2,6 +2,7 @@
 # Codebook
 
 Author: Martin Papenberg
+
 Year: 2019
 
 ---
@@ -14,7 +15,7 @@ This file is the codebook for the data sets
 - results-K4-objectives-raw.csv
 
 These files contain the simulation data reported in the manuscript 
-"Using anticlustering to partition a stimulus pool into
+"Using anticlustering to partition data sets into
 equivalent parts" (Papenberg & Klau, 2019). 
 
 --- 
