@@ -2,13 +2,13 @@
 # README
 
 Author: Martin Papenberg
-Year: 2019
+Year: 2019-2020
 
 ---
 
 This directory contains simulation code and data accompanying the
 manuscript "Using anticlustering to partition data sets into equivalent 
-parts" (Papenberg & Klau, 2019).
+parts" (Papenberg & Klau, 2020).
 
 ## General information
 
@@ -39,23 +39,39 @@ parts" (Papenberg & Klau, 2019).
 
 ## Dependencies: 
 
-To reproduce the simulation itself (i.e., applying anticlustering 
-functions to the data), the `anticlust` package must be installed
-(version >= 0.3.0). Additionally, to call the exact methods, an
-integer linear programming solver must be installed and callable
-from `R`. See `?anticlust` for more information. It is beneficial to 
-install one of the commercial solvers gurobi or CPLEX because they 
-are much faster than the open source GNU linear programming kit.
-Researchers can obtain a free (as in free beer) license for the 
-commercial solvers.
+To reproduce the simulation itself (i.e., applying anticlustering functions to 
+the data), the `anticlust` package must be installed (version >= 0.3.0). 
+Additionally, to call the exact methods, an integer linear programming solver 
+must be installed and callable from `R`. It is probably useful to install one of 
+the commercial solvers gurobi or CPLEX because they are much faster than the 
+open source GNU linear programming kit (GLPK). Researchers can obtain a free (as 
+in free beer) license for the commercial solvers.
 
-Note that to use a commercial integer linear programming solver,
-(old) `anticlust` version 0.3.0 **must** be used, which was also 
-used for the simulation reported in the paper. To install this 
-version of `anticlust`, use the following code:
+Note that to use a commercial integer linear programming solver, the old 
+`anticlust` version 0.3.0 **must** be used, which was also used for the 
+simulation reported in the paper. To install this version of `anticlust`, use 
+the following code:
 
 ```
 library("remotes") # if not available: install.packages("remotes")
-
 install_github("m-Py/anticlust", ref = "v0.3.0")
 ```
+
+Note that for the simulation presented in the paper, CPLEX version 12.8 was used 
+as the ILP solver, called from the package `Rcplex`, which has to be installed 
+manually in addition to `anticlust`, as it is only an optional dependency and 
+not automatically installed when installing `anticlust`:
+
+```
+install.packages("Rcplex")
+```
+
+Unfortunately, the R package 
+[`Rcplex`](https://CRAN.R-project.org/package=Rcplex) seems to be quite dated; 
+the last update on CRAN is version 0.3-3 from 2016-06-09 (I last checked on 
+2020-10-06). This version of the package `Rcplex` did not find my CPLEX 
+installation when I used a newer version of CPLEX (Version 12.10). So, I suppose 
+that the old version CPLEX 12.8 has to be used to reproduce the integer linear 
+programming anticlustering methods. It is of course also possible to just use 
+the free GLPK, but this may be very slow and have difficulties to solve the K = 
+3 cases at all. Feel free to contact me with problems.
