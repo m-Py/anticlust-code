@@ -1,14 +1,17 @@
 
 # README
 
-Author: Martin Papenberg
-Year: 2019-2020
+- Author: Martin Papenberg
+- Year: 2019-2020
 
 ---
 
-This directory contains simulation code and data accompanying the
-manuscript "Using anticlustering to partition data sets into equivalent 
-parts" (Papenberg & Klau, 2020).
+This directory contains code and data to reproduce and analyze the simulation 
+study reported in: 
+
+Papenberg, M., & Klau, G. W. (2020). Using anticlustering to partition data sets 
+into equivalent parts. *Psychological Methods*. Advance Online Publication. 
+https://doi.org/10.1037/met0000301
 
 ## General information
 
@@ -26,12 +29,12 @@ parts" (Papenberg & Klau, 2020).
   on the 10,000 data sets), execute all of the commands in the script 
   "2-Call-Methods.R". This will not reproduce the results exactly
   because most methods rely on random number generation.
-- To just reproduce the analysis reported in the paper, execute all 
-  commands in the script "3-Compute-Objectives.R" and "4-Aggregate-Results.R". 
-  Doing so will compute the three objectives reported in the manuscript
-  for each simulation run for each method, and the aggregate the results
-  to reproduce Table 2 from the paper (by writing the results to 
-  the files "results-K2-aggregated.csv" and  "results-K3-aggregated.csv")
+- To just reproduce the analysis reported in the paper (and not re-run the 
+  simulation), execute all commands in the script "3-Compute-Objectives.R" and 
+  "4-Aggregate-Results.R". Doing so will compute the three objectives reported in 
+  the manuscript for each simulation run for each method, and then aggregate the 
+  results to reproduce the data from Table 2 in the paper (by writing the results 
+  to the files "results-K2-aggregated.csv" and  "results-K3-aggregated.csv")
 - The file CODEBOOK.md contains information on the variables in the 
   data sets.
 - Make sure that the R working directory is set into this directory when
@@ -57,8 +60,8 @@ library("remotes") # if not available: install.packages("remotes")
 install_github("m-Py/anticlust", ref = "v0.3.0")
 ```
 
-Note that for the simulation presented in the paper, CPLEX version 12.8 was used 
-as the ILP solver, called from the package `Rcplex`, which has to be installed 
+To run the simulation presented in the paper, CPLEX version 12.8 was used as the 
+ILP solver, interfaced from the package `Rcplex`, which has to be installed 
 manually in addition to `anticlust`, as it is only an optional dependency and 
 not automatically installed when installing `anticlust`:
 
