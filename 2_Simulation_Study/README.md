@@ -78,3 +78,41 @@ that the old version CPLEX 12.8 has to be used to reproduce the integer linear
 programming anticlustering methods. It is of course also possible to just use 
 the free GLPK, but this may be very slow and have difficulties to solve the K = 
 3 cases at all. Feel free to contact me with problems.
+
+## Tipps
+
+### Run the simulation without commercial ILP solver
+
+If you do not get a commercial ILP solver running but want to try out the 
+simulation (i.e., execute the script "2-Call-Methods.R"), change the following 
+two lines in the script "0-functions-anticlustering-methods.R":
+
+- line 75: `if (i == "ilp-exact" && N <= 20) {`
+- change into: `if (i == "ilp-exact" && N <= 14) {`
+
+- line 81: `} else if (i == "ilp-preclustered" && N <= 40) {`
+- change into: `} else if (i == "ilp-preclustered" && N <= 18) {`
+
+This way, the ILP methods are only attempted for small data sets (N <= 14 for 
+the exact approach; N <= 18 for the approach that includes preclustering 
+restrictions). Then the simulation is rather fast when only using the free GLPK 
+solver, so you can check easily out how it works. (It then also works for recent 
+`anticlust` versions and not only for version 0.3.0.) Note that the results will 
+probably differ slightly from the results reported in the manuscript because the 
+ILP approach is then only used for smaller data sets. 
+
+### Run the simulation piece by piece
+
+To not run the entire simulation on all 10,000 data sets, I recommend to 
+uncomment line 32 in the file "2-Call-Methods.R":
+
+- `# files <- sample(files, size = 300)`
+
+Adjust the value given to `size` as needed; it determines the number of data 
+sets that are processed using the different anticlustering techniques (here: 
+300). The logic of the script ensures that no data set is processed more than 
+once, so feel free to adjust the number of data sets and repeat the simulation 
+as often as needed. (The results will be appended to the files 
+"results-K2-objectives-raw.csv" and "results-K3-objectives-raw.csv" whenever you 
+call "2-Call-Methods.R"). So if you call the script repeatedly, the results 
+files will grow. 
