@@ -1,9 +1,0 @@
-"0","nrow(schaper2019) # number of items
-"
-"1","[1]"
-"1"," 96"
-"1","
-"
-"0","schaper2019 %>% "
-"0","  head() %>% "
-"0","  kable()"
