@@ -81,8 +81,8 @@ the free GLPK, but this may be very slow and have difficulties to solve the K =
 3 cases at all. Feel free to contact me with problems.
 
 The aggregation of the raw simulation data into descriptive statistics (i.e., 
-calling the script "4-Aggregate-Results.R") requires that the R package `dplyr`
-is installed: 
+calling the script "4-Aggregate-Results.R") requires that the R package `dplyr` 
+(Version >= 0.8.3) is installed: 
 
 ```
 install.packages("dplyr")
