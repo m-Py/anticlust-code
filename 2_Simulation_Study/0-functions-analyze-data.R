@@ -1,6 +1,6 @@
 
 # Author: Martin Papenberg
-# Year: 2019
+# Year: 2019-2020
 
 #' Compute objective values for a given method and data set
 #' 
@@ -11,7 +11,7 @@
 compute_objectives <- function(row, K) {
   data <- read.csv(paste0("datasets/K", K, "/", row["file"], ".csv"))
   anticlusters <- anticlusters_from_string(row["result"])
-  dist_obj <- anticlust::distance_objective(data, clusters = anticlusters)
+  dist_obj <- diversity(data, clusters = anticlusters)
   means_obj <- var_means(anticlusters, data)
   sd_obj <- var_sds(anticlusters, data)
   ## hier mit der Datei arbeiten, die die Lösungen enthält
@@ -58,4 +58,20 @@ featurewise_diff <- function(x, K) {
 # Determine the maximum range in a vector
 range_diff <- function(x) {
   diff(range(x))
+}
+
+# Compute diversity (distance objective)
+diversity <- function(clusters, x) {
+  x <- as.matrix(x)
+  sum(diversity_objective_by_group(clusters, x))
+}
+
+# Compute distance objective by cluster
+# param data: distance matrix or feature matrix
+# param cl: cluster assignment
+diversity_objective_by_group <- function(cl, data) {
+  sapply(
+    sort(unique(cl)), 
+    function(x) sum(dist(data[cl == x, ]))
+  )
 }
