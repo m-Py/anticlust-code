@@ -43,12 +43,13 @@ https://doi.org/10.1037/met0000301
 ## Dependencies: 
 
 To reproduce the simulation itself (i.e., applying anticlustering functions to 
-the data), the `anticlust` package must be installed (version >= 0.3.0). 
-Additionally, to call the exact methods, an integer linear programming solver 
-must be installed and callable from `R`. It is probably useful to install one of 
-the commercial solvers gurobi or CPLEX because they are much faster than the 
-open source GNU linear programming kit (GLPK). Researchers can obtain a free (as 
-in free beer) license for the commercial solvers.
+the data in the script "2-Call-Methods.R"), the `anticlust` package must be 
+installed (version >= 0.3.0). Additionally, to call the exact methods, an 
+integer linear programming solver must be installed and callable from `R`. It is 
+probably useful to install one of the commercial solvers gurobi or CPLEX because 
+they are much faster than the open source GNU linear programming kit (GLPK). 
+Researchers can obtain a free (as in free beer) license for the commercial 
+solvers.
 
 Note that to use a commercial integer linear programming solver, the old 
 `anticlust` version 0.3.0 **must** be used, which was also used for the 
@@ -78,6 +79,14 @@ that the old version CPLEX 12.8 has to be used to reproduce the integer linear
 programming anticlustering methods. It is of course also possible to just use 
 the free GLPK, but this may be very slow and have difficulties to solve the K = 
 3 cases at all. Feel free to contact me with problems.
+
+The aggregation of the raw simulation data into descriptive statistics (i.e., 
+calling the script "4-Aggregate-Results.R") requires that the R package `dplyr`
+is installed: 
+
+```
+install.packages("dplyr")
+```
 
 ## Tipps
 
