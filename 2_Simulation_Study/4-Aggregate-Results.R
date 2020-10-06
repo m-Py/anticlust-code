@@ -1,42 +1,39 @@
 
 # Author: Martin Papenberg
-# Year: 2019
+# Year: 2020
 
 # Load required packages
-library(anticlust)
 library(dplyr)
+library(ggplot2)
+library(tidyr)
 
 ## Analyze data for K = 2 and K = 3 and write results to file
-for (K in 2:3) {
-  results_file <- paste0("results-K", K, "-objectives-raw.csv")
-  
-  ## Read test results
-  ldf <- read.csv(results_file, sep = ";", stringsAsFactors = FALSE)
-  message("Number of simulation runs for K = ", K , ": ", length(unique(ldf$ID)), "\n")
-  # Ensure that each data set was processed only once
-  stopifnot(all(table(ldf$ID) %in% c(3, 4, 5, 6)))
+filename <- paste0("results-K", 2, "-objectives-raw.csv")
+ldf2 <- read.csv(filename, sep = ";", stringsAsFactors = FALSE)
+ldf2$K <- 2
+filename <- paste0("results-K", 3, "-objectives-raw.csv")
+ldf3 <- read.csv(filename, sep = ";", stringsAsFactors = FALSE)
+ldf3$K <- 3
 
-  ## Get optimum per simulation run for the Anticluster Editing objective
-  maxima <- ldf %>% 
-    group_by(ID) %>% 
-    summarise(maximum = max(dist_obj))
+ldf <- rbind(ldf2, ldf3)
 
-  ## Compute relative objective
-  merged <- ldf %>% 
-    inner_join(maxima) %>% 
-    mutate(rel_value = dist_obj / maximum) %>% 
-    as_tibble()
+length(unique(ldf$ID))
+table(table(ldf$ID))
+
+aggregated <- ldf %>% 
+  group_by(method, N, K) %>% 
+  summarise(D_Means = mean(means_obj), D_SD = mean(sd_obj)) %>% 
+  arrange(N, D_Means) %>%  #make long format
+  pivot_longer(
+    cols = starts_with("D_"), 
+    names_to = "objective"
+  )
   
-  # Average performance per simulation run across the different sample
-  # categories
-  aggregated_objectives <- merged %>% 
-    group_by(method, N) %>% 
-    summarise(Objective = mean(rel_value), D_Means = mean(means_obj), D_SD = mean(sd_obj)) %>% 
-    arrange(N, -Objective) %>% 
-    na.omit()
+
+ggplot(aggregated, aes(x = N, y = value, colour = method)) + 
+  geom_point(size = 3) + 
+  facet_grid(cols = vars(objective), rows = vars(K), scales = "free") + 
+  theme_bw(base_size = 22)
   
-  ## Write results table
-  print(aggregated_objectives)
-  write.table(aggregated_objectives, paste0("results-K", K, "-aggregated.csv"), 
-              quote = TRUE, row.names = FALSE, sep = ";")
-}
+  
+
