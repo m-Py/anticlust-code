@@ -3,7 +3,7 @@
 
 Author: Martin Papenberg
 
-Year: 2019
+Year: 2019-2020
 
 ---
 
@@ -12,22 +12,24 @@ This file is the codebook for the data sets
 - results-K2-solutions.csv
 - results-K3-solutions.csv
 - results-K2-objectives-raw.csv
-- results-K4-objectives-raw.csv
+- results-K3-objectives-raw.csv
 
-These files contain the simulation data reported in the manuscript 
-"Using anticlustering to partition data sets into
-equivalent parts" (Papenberg & Klau, 2019). 
+These files contain the simulation data reported in the manuscript "Using 
+anticlustering to partition data sets into equivalent parts" (Papenberg & Klau, 
+2020). 
 
 --- 
 
 ## General information
 
-The data sets are given in a format where each row is uniquely 
-represented by a combination of (a) anticlustering method 
-and (b) an ID that uniquely identifies each simulation run.
+The data sets are given in a format where each row is uniquely represented by a 
+combination of (a) anticlustering method and (b) an ID that uniquely identifies 
+each simulation run. The "solutions" files and the "objectives-raw" files 
+contain different information on the same simulation runs (identified by the 
+unique IDs).
 
-In each run, three objectives were computed for a maximum of six methods. 
-In particular:
+In each simulation run, three objectives were computed for a maximum of six 
+methods. In particular:
 
 - K = 2: 
     + For N <= 20, six methods were applied
@@ -58,3 +60,5 @@ The data sets store the following variables:
 - dist_obj: The anticluster editing objective, referred to D_within in the paper (higher = better)
 - means_obj: A measure of the discrepancy in the feature means (lower = better)
 - sd_obj: A measure of the discrepancy in the feature standard deviations (lower = better)
+
+
