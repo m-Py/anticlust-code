@@ -60,11 +60,9 @@ anticluster_data_ <- function(data, K) {
 
   ## Generate data matrix for storing the objective values
   methods <- c(
-    "ilp-exact", 
-    "ilp-preclustered",
     "ace-exchange",
     "k-means-exchange",
-    "matching",
+    "kplus",
     "random"
   )
   clusters <- as.list(rep(NA, length(methods)))
@@ -72,34 +70,29 @@ anticluster_data_ <- function(data, K) {
   
   ## Apply methods
   for (i in methods) {
-    if (i == "ilp-exact" && N <= 20) {
+    if (i == "ace-exchange") {
       clusters[[i]] <- anticlustering(
         data, 
         K = K,
-        method = "ilp"
-      )
-    } else if (i == "ilp-preclustered" && N <= 40) {
-      clusters[[i]] <- anticlustering(
-        data, 
-        K = K,
-        method = "ilp",
-        preclustering = TRUE
-      )
-    } else if (i == "ace-exchange") {
-      clusters[[i]] <- anticlustering(
-        data, 
-        K = K,
-        method = "exchange"
+        method = "local-maximum",
+        repetitions = 5
       )
     } else if (i == "k-means-exchange") {
       clusters[[i]] <- anticlustering(
         data, 
         K = K,
         objective = "variance",
-        method = "exchange"
+        method = "local-maximum",
+        repetitions = 5
       )
-    } else if (i == "matching" && K == 2) {
-      clusters[[i]] <- matching_anticlustering(dist(data))
+    } else if (i == "kplus") {
+      clusters[[i]] <- anticlustering(
+        data, 
+        K = K,
+        objective = "kplus",
+        method = "local-maximum",
+        repetitions = 5
+      )
     } else if (i == "random") {
       clusters[[i]] <- sample(rep_len(1:K, N))
     }

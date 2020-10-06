@@ -7,9 +7,16 @@
 #' This function works with the files results-K2-solutions.csv / 
 #' results-K3-solutions.csv and assumes that the input is a row
 #' in one of these files.
+#' 
+#' A `row` is a character vector.
+#' 
 
 compute_objectives <- function(row, K) {
-  data <- read.csv(paste0("datasets/K", K, "/", row["file"], ".csv"))
+  filename <- paste0("datasets/K", K, "/", row["file"], ".csv")
+  #print(filename)
+  #print(row)
+  #print(row$file)
+  data <- read.csv(filename)
   anticlusters <- anticlusters_from_string(row["result"])
   dist_obj <- diversity(data, clusters = anticlusters)
   means_obj <- var_means(anticlusters, data)

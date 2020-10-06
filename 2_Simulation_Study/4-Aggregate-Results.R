@@ -30,34 +30,13 @@ for (K in 2:3) {
   # Average performance per simulation run across the different sample
   # categories
   aggregated_objectives <- merged %>% 
-    mutate(N_category = factor(
-      case_when(N <= 20 ~ 1, 
-                N > 20 & N <= 40 ~ 2,
-                TRUE  ~ 3),
-      levels = 1:3, labels = c("N <= 20", "20 < N <= 40", "N > 40"))
-    ) %>% 
-    group_by(method, N_category) %>% 
+    group_by(method, N) %>% 
     summarise(Objective = mean(rel_value), D_Means = mean(means_obj), D_SD = mean(sd_obj)) %>% 
-    arrange(N_category, -Objective) %>% 
-    na.omit() %>%  
-    rename(N = N_category)
- 
-  # rename methods
-  aggregated_objectives <- aggregated_objectives %>% 
-    ungroup %>%
-    mutate(
-      method = case_when(
-        method == "ilp-exact" ~ "ACE-ILP",
-        method == "ilp-preclustered" ~ "ACE-ILP/Preclustering",
-        method == "ace-exchange" ~ "ACE-Exchange",
-        method == "matching" ~ "Matching",
-        method == "k-means-exchange" ~ "K-Means-Anticlustering",
-        method == "random" ~ "Random assignment",
-        TRUE ~ "should not happen"
-      )
-    )
+    arrange(N, -Objective) %>% 
+    na.omit()
   
   ## Write results table
+  print(aggregated_objectives)
   write.table(aggregated_objectives, paste0("results-K", K, "-aggregated.csv"), 
               quote = TRUE, row.names = FALSE, sep = ";")
 }
