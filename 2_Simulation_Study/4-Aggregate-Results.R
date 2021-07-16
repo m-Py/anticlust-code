@@ -1,39 +1,40 @@
 
 # Author: Martin Papenberg
-# Year: 2020
+# Year: 2021
 
 # Load required packages
 library(dplyr)
 library(ggplot2)
 library(tidyr)
 
-## Analyze data for K = 2 and K = 3 and write results to file
-filename <- paste0("results-K", 2, "-objectives-raw.csv")
-ldf2 <- read.csv(filename, sep = ";", stringsAsFactors = FALSE)
-ldf2$K <- 2
-filename <- paste0("results-K", 3, "-objectives-raw.csv")
-ldf3 <- read.csv(filename, sep = ";", stringsAsFactors = FALSE)
-ldf3$K <- 3
+## Analyze data for K = 2 and K = 3 and K = 4
+simulation_results <- list()
+for (K in 2:4) {
+  filename <- paste0("results-K", K, "-objectives-raw.csv")
+  df <- read.csv(filename, sep = ";", stringsAsFactors = FALSE)
+  df$K <- K
+  simulation_results[[paste0("K-", K)]] <- df
+}
 
-ldf <- rbind(ldf2, ldf3)
+df <- do.call(rbind, simulation_results)
+rownames(df) <- NULL
 
-length(unique(ldf$ID))
-table(table(ldf$ID))
+length(unique(df$ID))
+table(table(df$ID))
 
-aggregated <- ldf %>% 
-  group_by(method, N, K) %>% 
-  summarise(D_Means = mean(means_obj), D_SD = mean(sd_obj)) %>% 
-  arrange(N, D_Means) %>%  #make long format
-  pivot_longer(
-    cols = starts_with("D_"), 
-    names_to = "objective"
-  )
-  
+# Make long format
+ldf <- pivot_longer(
+  df,
+  cols = paste0(c("kvar", "kmeans", "means", "sd"), "_obj"),
+  names_to = "Objective",
+  names_pattern = "(.*)_obj"
+)
 
-ggplot(aggregated, aes(x = N, y = value, colour = method)) + 
+ldf %>% 
+  group_by(method, Objective, N, K) %>% 
+  summarise(Mean = mean(value)) %>% 
+  filter(Objective %in% c("means", "sd")) %>% 
+  ggplot(aes(x = N, y = Mean, colour = method)) + 
   geom_point(size = 3) + 
-  facet_grid(cols = vars(objective), rows = vars(K), scales = "free") + 
+  facet_grid(cols = vars(Objective), rows = vars(K), scales = "free") + 
   theme_bw(base_size = 22)
-  
-  
-

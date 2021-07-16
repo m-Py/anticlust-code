@@ -1,13 +1,16 @@
 
 # Author: Martin Papenberg
-# Year: 2019
+# Year: 2021
 
 # First step in the simulation: Generate data
 source("0-functions-generate-data.R")
 
-## Generate some data with random input for K = 2
+sample_sizes <- 12 * 2:25 # 24 - 300
 nsets <- 500
-N <- sample(c(30, 60, 120, 210), replace = TRUE, size = nsets)
+
+## Generate some data with random input for K = 2
+
+N <- sample(sample_sizes, replace = TRUE, size = nsets)
 M <- sample(1:4, replace = TRUE, size = nsets)
 dists <- sample(c("normal", "uniform", "normal-wide"), replace = TRUE, size = nsets)
 
@@ -17,10 +20,17 @@ for (i in 1:nsets) {
 }
 
 ## Generate some data with random input for K = 3
-nsets <- 500
-N <- sample(c(30, 60, 120, 210), replace = TRUE, size = nsets)
+N <- sample(sample_sizes, replace = TRUE, size = nsets)
 M <- sample(1:4, replace = TRUE, size = nsets)
 dists <- sample(c("normal", "uniform", "normal-wide"), replace = TRUE, size = nsets)
 for (i in 1:nsets) {
   generate_data(N[i], M[i], dists[i], dir = "datasets/K3/")
+}
+
+## Generate some data with random input for K = 4
+N <- sample(sample_sizes, replace = TRUE, size = nsets)
+M <- sample(1:4, replace = TRUE, size = nsets)
+dists <- sample(c("normal", "uniform", "normal-wide"), replace = TRUE, size = nsets)
+for (i in 1:nsets) {
+  generate_data(N[i], M[i], dists[i], dir = "datasets/K4/")
 }

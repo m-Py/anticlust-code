@@ -1,6 +1,6 @@
 
 # Author: Martin Papenberg
-# Year: 2019-2020
+# Year: 2021
 
 #' Compute objective values for a given method and data set
 #' 
@@ -18,14 +18,16 @@ compute_objectives <- function(row, K) {
   #print(row$file)
   data <- read.csv(filename)
   anticlusters <- anticlusters_from_string(row["result"])
-  dist_obj <- diversity(data, clusters = anticlusters)
+  kvar_obj <- variance_objective(squared_from_mean(data), anticlusters)
+  kmeans_obj <- variance_objective(data, anticlusters)
   means_obj <- var_means(anticlusters, data)
   sd_obj <- var_sds(anticlusters, data)
-  ## hier mit der Datei arbeiten, die die Lösungen enthält
+  
   return(c(
     row["ID"],
     row["method"],
-    dist_obj = dist_obj,
+    kvar_obj = kvar_obj,
+    kmeans_obj = kmeans_obj,
     means_obj = means_obj,
     sd_obj = sd_obj
   ))
@@ -67,18 +69,7 @@ range_diff <- function(x) {
   diff(range(x))
 }
 
-# Compute diversity (distance objective)
-diversity <- function(clusters, x) {
-  x <- as.matrix(x)
-  sum(diversity_objective_by_group(clusters, x))
-}
-
-# Compute distance objective by cluster
-# param data: distance matrix or feature matrix
-# param cl: cluster assignment
-diversity_objective_by_group <- function(cl, data) {
-  sapply(
-    sort(unique(cl)), 
-    function(x) sum(dist(data[cl == x, ]))
-  )
+# Compute features for k-means-extended criterion
+squared_from_mean <- function(data) {
+  apply(data, 2, function(x) (x - mean(x))^2)
 }

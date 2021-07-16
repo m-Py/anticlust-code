@@ -1,16 +1,15 @@
 
 # Author: Martin Papenberg
-# Year: 2019
+# Year: 2021
 
 # Load required packages
 library(anticlust)
 
-source("0-functions-matching.R")
 source("0-functions-anticlustering-methods.R")
 source("0-functions-generate-data.R")
 
 # Repeat the simulation for K = 2 and K = 3 
-for (K in 2:3) {
+for (K in 2:4) {
   
   # Select all data files
   n_Clusters <- paste0("K", K)
@@ -28,8 +27,8 @@ for (K in 2:3) {
   }
   
   # Uncomment the following line and exchange the value of the size 
-  # argument if not all 2x 5000 file should be processed at the same time
-  files <- sample(files, size = 50)
+  # argument if not all files should be processed at the same time
+  files <- sample(files, size = 200)
   
   ## Apply all methods to the data sets
   message("Starting to work on ", length(files), " data sets")
