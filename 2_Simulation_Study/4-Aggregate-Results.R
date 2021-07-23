@@ -44,3 +44,16 @@ ldf %>%
   group_by(method, Objective, K) %>% 
   summarise(N = n()) %>% 
   pull(N)
+
+# Check how well k-plus approximates k-means
+ldf %>% 
+  group_by(method, Objective, N, K) %>% 
+  summarise(Mean = mean(value)) %>% 
+  filter(Objective == "kmeans", method %in% c("kplus", "k-means-exchange")) %>% 
+  pivot_wider(names_from = method, values_from = Mean) %>% 
+  ungroup() %>% 
+  group_by(N, K) %>% 
+  summarise(rel = kplus / `k-means-exchange`) %>% 
+  ggplot(aes(x = N, y = rel, colour = factor(K))) + 
+  geom_point(size = 1)
+
