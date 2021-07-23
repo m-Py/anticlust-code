@@ -55,5 +55,7 @@ ldf %>%
   group_by(N, K) %>% 
   summarise(rel = kplus / `k-means-exchange`) %>% 
   ggplot(aes(x = N, y = rel, colour = factor(K))) + 
-  geom_point(size = 1)
+  geom_line(size = 1)
 
+# TODO: also display the numbers themselves in a table, but divide N into a 
+# smaller number of categories for this.
