@@ -8,12 +8,12 @@ library(anticlust)
 source("0-functions-anticlustering-methods.R")
 source("0-functions-generate-data.R")
 
-# Repeat the simulation for K = 2 and K = 3 
+# Repeat the simulation for K = 2 and K = 3 and K = 4; same data sets for every K
 for (K in 2:4) {
   
   # Select all data files
   n_Clusters <- paste0("K", K)
-  path <- paste0("./datasets/", n_Clusters, "/")
+  path <- paste0("./datasets/")
   files <- paste0(list.files(path = path))
   
   ## Check that no analysis is repeated that has been conducted previously
@@ -28,7 +28,7 @@ for (K in 2:4) {
   
   # Uncomment the following line and exchange the value of the size 
   # argument if not all files should be processed at the same time
-  files <- sample(files, size = 200)
+  files <- sample(files, size = 500)
   
   ## Apply all methods to the data sets
   message("Starting to work on ", length(files), " data sets")
@@ -36,4 +36,3 @@ for (K in 2:4) {
   lapply(files, anticluster_data, path = path, K = K)
   print(Sys.time() - start)
 }
-

@@ -1,6 +1,6 @@
 
 # Author: Martin Papenberg
-# Year: 2019
+# Year: 2021
 
 
 #' Apply several anticlustering methods to a data set
@@ -8,12 +8,6 @@
 #' @param file The name of the file to be analyzed
 #' @param path The path to the file to be analyzed
 #' @param K The number of groups to be created
-#' 
-#' @details 
-#' 
-#' For the tests, the exact ILP method will only be applied when 
-#' N <= 20; the preclustered ILP method will only be applied when 
-#' N <= 40. The matching method will only be performed if M = 2.
 #' 
 #' @return A data frame that contains the anticluster assignment per method
 #'     Primarily, however, this function is called to write the results to

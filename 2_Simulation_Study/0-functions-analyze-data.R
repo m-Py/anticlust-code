@@ -12,7 +12,7 @@
 #' 
 
 compute_objectives <- function(row, K) {
-  filename <- paste0("datasets/K", K, "/", row["file"], ".csv")
+  filename <- paste0("./datasets/", row["file"], ".csv")
   #print(filename)
   #print(row)
   #print(row$file)

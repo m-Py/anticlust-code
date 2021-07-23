@@ -1,8 +1,8 @@
 
 # Author: Martin Papenberg
-# Year: 2019
+# Year: 2021
 
-#' Generate a data set for testing
+#' Generate a data set for k-plus anticlustering simulation
 #' 
 #' @param N the number of elements
 #' @param M the number of features
