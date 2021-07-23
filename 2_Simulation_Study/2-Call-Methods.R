@@ -8,7 +8,8 @@ library(anticlust)
 source("0-functions-anticlustering-methods.R")
 source("0-functions-generate-data.R")
 
-# Repeat the simulation for K = 2 and K = 3 and K = 4; same data sets for every K
+# Repeat the simulation for K = 2 and K = 3 and K = 4; 
+# same data sets are used for every K
 for (K in 2:4) {
   
   # Select all data files
@@ -28,7 +29,7 @@ for (K in 2:4) {
   
   # Uncomment the following line and exchange the value of the size 
   # argument if not all files should be processed at the same time
-  files <- sample(files, size = 500)
+  files <- sample(files, size = 1000)
   
   ## Apply all methods to the data sets
   message("Starting to work on ", length(files), " data sets")

@@ -61,6 +61,9 @@ anticluster_data_ <- function(data, K) {
   )
   clusters <- as.list(rep(NA, length(methods)))
   names(clusters) <- methods
+  repetitions <- 5
+  
+  standardize <- TRUE
   
   ## Apply methods
   for (i in methods) {
@@ -69,7 +72,8 @@ anticluster_data_ <- function(data, K) {
         data, 
         K = K,
         method = "local-maximum",
-        repetitions = 5
+        repetitions = repetitions,
+        standardize = standardize
       )
     } else if (i == "k-means-exchange") {
       clusters[[i]] <- anticlustering(
@@ -77,7 +81,8 @@ anticluster_data_ <- function(data, K) {
         K = K,
         objective = "variance",
         method = "local-maximum",
-        repetitions = 5
+        repetitions = repetitions,
+        standardize = standardize
       )
     } else if (i == "kplus") {
       clusters[[i]] <- anticlustering(
@@ -85,7 +90,8 @@ anticluster_data_ <- function(data, K) {
         K = K,
         objective = "kplus",
         method = "local-maximum",
-        repetitions = 5
+        repetitions = repetitions,
+        standardize = standardize
       )
     } else if (i == "random") {
       clusters[[i]] <- sample(rep_len(1:K, N))

@@ -35,6 +35,12 @@ ldf %>%
   summarise(Mean = mean(value)) %>% 
   filter(Objective %in% c("means", "sd")) %>% 
   ggplot(aes(x = N, y = Mean, colour = method)) + 
-  geom_point(size = 3) + 
+  geom_line(size = 1) + 
   facet_grid(cols = vars(Objective), rows = vars(K), scales = "free") + 
   theme_bw(base_size = 22)
+
+# Check number of simulations per condition
+ldf %>% 
+  group_by(method, Objective, K) %>% 
+  summarise(N = n()) %>% 
+  pull(N)
