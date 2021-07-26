@@ -29,7 +29,7 @@ for (K in 2:4) {
   
   # Uncomment the following line and exchange the value of the size 
   # argument if not all files should be processed at the same time
-  files <- sample(files, size = 1000)
+  #files <- sample(files, size = 1000)
   
   ## Apply all methods to the data sets
   message("Starting to work on ", length(files), " data sets")

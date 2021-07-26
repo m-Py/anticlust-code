@@ -33,7 +33,7 @@ ldf <- pivot_longer(
 ldf %>% 
   group_by(method, Objective, N, K) %>% 
   summarise(Mean = mean(value)) %>% 
-  filter(Objective %in% c("means", "sd")) %>% 
+  filter(Objective %in% c("means", "sd"), method != "random") %>% 
   ggplot(aes(x = N, y = Mean, colour = method)) + 
   geom_line(size = 1) + 
   facet_grid(cols = vars(Objective), rows = vars(K), scales = "free") + 
