@@ -114,4 +114,4 @@ avg_item_correlation_by_set <- function(item_sets, items) {
   indices <- sort(unique(item_sets))
   sapply(indices, function(i) mean(as.dist(cor(items[, item_sets == i]))))
 }
-avg_item_correlation_by_set(item_sets, items) |> round(2)
+avg_item_correlation_by_set(item_sets, item_responses) |> round(2)
